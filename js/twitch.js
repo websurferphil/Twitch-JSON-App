@@ -60,6 +60,24 @@ channels.forEach(function(user) {
 });
 
 var printChannel = function(status, image, username, text) {
-          $("#streams").append("<tr class='" + status + "'><td><img src='" + image + "' class=\"logo\"/></td><td colspan='2'>" + username + text + "</td></tr>");
+          $("#streams").append("<tr id='" + username + "' class='" + status + "'><td><a href='http://twitch.tv/" + username + "'><img src='" + image + "' class=\"logo\"/></a></td><td colspan='2'>" + username + "<span class='symbol'></span><span class='status'>" + text + "</span></td></tr>");
 };
+
+$("#search").on("keyup", function(){
+  var regExText = $(this).val();
+  var re = new RegExp(regExText, "gi");
+  $("tr").each(function(index, value) {
+    var userRow = value.getAttribute("id");
+    if (userRow !== null) {
+
+      if(userRow.search(re) === -1){
+        $(this).hide();
+      } else {
+        $(this).show();
+      }
+    }
+  });
+
+  
+});
 
